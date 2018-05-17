@@ -48,10 +48,6 @@ public class BSSIDGenerator {
             md.update(buffer);
             byte[] digest = Arrays.copyOfRange(md.digest(),0,6); //take the first 6 bytes from the fingerprint
 
-            //overwrite specific bytes in byte array with byte value of 'e' ...hork's wish
-            digest[0] = tmp_byte[0];
-            digest[1] = tmp_byte[1];
-
             //BSSID = digest.toString();
             BSSID = bytesToHex(digest);
 
@@ -60,6 +56,10 @@ public class BSSIDGenerator {
             e.printStackTrace();
         }
 
-        return insertChars(BSSID, ':');
+        StringBuilder BSSID_ret = new StringBuilder(insertChars(BSSID, ':'));
+        BSSID_ret.setCharAt(0, 'E');
+        BSSID_ret.setCharAt(1, 'E');
+      
+        return BSSID_ret.toString();
     }
 }
