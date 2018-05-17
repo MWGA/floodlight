@@ -45,8 +45,8 @@ public class LvapApi {
                     response.header("Content-type", "application/json");
                 } else {
                     // duplicate POST
-                    response.status(409); // Conflict
-                    response.body("");
+                    response.status(200);
+                    response.body( new Gson().toJson(this.lvapDb.get(requestObject.getMac())));
                 }
             } catch (Exception e){
                 response.status(500);
